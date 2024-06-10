@@ -23,6 +23,7 @@ function buildMetadata(sample) {
     Object.entries(result).forEach(([key, value]) => {
       panel.append("h6").text(`${key.toUpperCase()}: ${value}`);
     
+    });
   });
 }
 
@@ -41,7 +42,7 @@ function buildCharts(sample) {
     // Get the otu_ids, otu_labels, and sample_values
     const otu_ids = result.otu_ids;
     const otu_labels = result.otu_labels;
-    const sample_values = result.sample_values
+    const sample_values = result.sample_values;
 
     // Build a Bubble Chart
     const bubbleData = [{
@@ -58,10 +59,12 @@ function buildCharts(sample) {
 
     // Render the Bubble Chart
     const bubbleLayout = {
-      title: "OTU Samples",
+      title: "Bacteria Cultures Per Sample",
       margin: { t: 0 },
       hovermode: "closest",
       xaxis: { title: "OTU ID" },
+      yaxis: {title:"Number of Bacteria"},
+
       margin: { t: 30 }
     };
 
@@ -85,13 +88,14 @@ function buildCharts(sample) {
 
     // Render the Bar Chart
     const barLayout = {
-      title: "Top 10 OTUs Found in Sample"
+      title: "Top 10 Bacteria Cultures Found",
+      xaxis: {title: "Number of Bacteria"}
     };
 
     Plotly.newPlot("bar", barData, barLayout);
   });
-}
 
+}
 // Function to run on page load
 function init() {
   d3.json("https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json").then((data) => {
